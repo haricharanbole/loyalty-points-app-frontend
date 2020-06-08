@@ -4,40 +4,29 @@ import {
   StatusBar,
   View,
   Text,
-  SectionList,
   SafeAreaView,
   TouchableOpacity,
+  Image,
 } from 'react-native';
+
+import {SectionGrid} from 'react-native-super-grid';
 
 import styles from './styles/SelectBrandsStyles';
 
-const DATA = [
-  {
-    title: 'AUTOMOTIVE',
-    data: ['Pizza', 'Burger', 'Risotto'],
-  },
-  {
-    title: 'FOOD AND BEVERAGE',
-    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-  },
-  {
-    title: 'CONSUMER PRODUCTS',
-    data: ['Water', 'Coke', 'Beer'],
-  },
-];
-
-const Item = ({title}) => (
-  <View style={styles.item}>
-    <Text style={styles.itemTitle}>{title}</Text>
-  </View>
-);
+const brands = require('../../assets/images/SelectBrands/brands.json')
+  .BrandLogos;
 
 export default class SelectBrands extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isSubmitActive: true,
+      brands: this.addSelectedFlagToBrands(),
     };
+  }
+  addSelectedFlagToBrands() {
+    brands.forEach((item) => (item.isSelected = false));
+    return brands;
   }
   render() {
     return (
@@ -75,15 +64,68 @@ export default class SelectBrands extends Component {
               </View>
             </View>
             <View style={styles.bodyContainer}>
-              <SectionList
-                sections={DATA}
-                keyExtractor={(item, index) => item + index}
-                renderItem={({item}) => <Item title={item} />}
-                renderSectionHeader={({section: {title}}) => (
-                  <Text style={styles.itemHeaderText}>{title}</Text>
-                )}
-                showsVerticalScrollIndicator={false}
+              <SectionGrid
+                itemDimension={90}
+                // staticDimension={300}
+                // fixed
+                // spacing={20}
                 showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                sections={[
+                  {
+                    title: 'AUTOMOTIVE',
+                    data: this.state.brands.slice(0, 9),
+                  },
+                  {
+                    title: 'FOOD AND BEVERAGE',
+                    data: this.state.brands.slice(9, 12),
+                  },
+                  {
+                    title: 'CONSUMER PRODUCTS',
+                    data: this.state.brands.slice(12, 15),
+                  },
+                ]}
+                style={styles.gridView}
+                renderItem={({item, section, index}) => (
+                  <TouchableOpacity
+                    style={
+                      item.isSelected
+                        ? styles.itemContainerActive
+                        : styles.itemContainer
+                    }
+                    onPress={() => {
+                      const updatedBrands = this.state.brands;
+                      updatedBrands.forEach((brand) => {
+                        if (brand.ID === item.ID) {
+                          brand.isSelected = !brand.isSelected;
+                        }
+                      });
+                      this.setState({
+                        brands: updatedBrands,
+                      });
+                    }}>
+                    {item.isSelected ? (
+                      <View style={styles.tickContainer}>
+                        <Image
+                          source={require('../../assets/images/SelectBrands/tick.png')}
+                        />
+                      </View>
+                    ) : (
+                      <View style={styles.tickContainer}>{null}</View>
+                    )}
+
+                    <View style={styles.itemImageContainer}>
+                      <Image
+                        style={styles.itemImage}
+                        source={{uri: item.imageURI}}
+                      />
+                    </View>
+                    <View style={styles.tickContainer}>{null}</View>
+                  </TouchableOpacity>
+                )}
+                renderSectionHeader={({section}) => (
+                  <Text style={styles.sectionHeader}>{section.title}</Text>
+                )}
               />
             </View>
           </View>

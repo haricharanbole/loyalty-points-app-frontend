@@ -5,11 +5,12 @@ import {
 } from 'react-native-responsive-screen';
 
 const screenColors = {
-  background: '#E5E5E5',
+  background: '#FFF',
   submitActiveColor: '#0087FA',
   submitInactiveColor: '#8B8B8B',
-  inactiveBrandGridItemBackground: '#C6C6C6',
+  inactiveBrandGridItemBackground: '#FBFBFB',
   activeBrandGridItemBackground: '#fff',
+  black: '#000',
 };
 
 const maxContentWidth = wp('86.374695863746959%');
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
   },
   screenDescriptionContainer: {
     flex: 0.64,
+    width: maxContentWidth,
     backgroundColor: 'transparent',
     alignItems: 'flex-start',
     justifyContent: 'center',
@@ -50,6 +52,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     flex: 0.72,
     width: maxContentWidth,
+    backgroundColor: 'transparent',
   },
   submitButton: {
     height: hp('3%'),
@@ -93,18 +96,57 @@ const styles = StyleSheet.create({
     fontSize: hp('2%'),
     fontWeight: 'normal',
   },
-  item: {
-    backgroundColor: 'transparent',
-    padding: 20,
-    marginVertical: 8,
+  gridView: {
+    flex: 1,
+  },
+  itemContainer: {
+    flex: 1,
+    padding: wp('2%'),
+    height: wp('25%'),
+    width: wp('25%'),
+    backgroundColor: screenColors.inactiveBrandGridItemBackground,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  itemContainerActive: {
+    flex: 1,
+    padding: wp('2%'),
+    height: wp('25%'),
+    width: wp('25%'),
+    backgroundColor: screenColors.activeBrandGridItemBackground,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: screenColors.black,
+    shadowOpacity: 0.5,
+    shadowRadius: wp('2%'),
+    elevation: wp('2%'),
+  },
+  tickContainer: {
+    width: '100%',
+    flex: 0.1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+  },
+  itemImageContainer: {
+    flex: 0.8,
+  },
+  itemImage: {
+    height: wp('15%'),
+    width: wp('15%'),
+    resizeMode: 'contain',
+  },
+  itemCode: {
+    fontWeight: '600',
+    fontSize: 12,
+    color: '#fff',
+  },
+  sectionHeader: {
+    fontFamily: 'Roboto-Medium',
+    fontSize: 15,
+    fontWeight: '600',
+    color: screenColors.black,
     width: maxContentWidth,
-  },
-  itemHeaderText: {
-    fontSize: 28,
-    fontFamily: 'Roboto-BlackItalic',
-  },
-  itemTitle: {
-    fontSize: 24,
+    backgroundColor: screenColors.background,
   },
 });
 
