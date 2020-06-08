@@ -1,17 +1,8 @@
 import React, {Component} from 'react';
-import {
-  StatusBar,
-  StyleSheet,
-  View,
-  Button,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import {StatusBar, StyleSheet, View, Button, Dimensions} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
-console.log(windowWidth, windowHeight, Platform.OS);
 
 export default class SelectOutlet extends Component {
   render() {
@@ -19,7 +10,10 @@ export default class SelectOutlet extends Component {
       <>
         <StatusBar barStyle="dark-content" />
         <View style={styles.rootContainer}>
-          <Button onPress={this._onPressButton} title="Select" />
+          <Button
+            onPress={() => this.props.navigation.navigate('View Outlet')}
+            title="Select"
+          />
         </View>
       </>
     );

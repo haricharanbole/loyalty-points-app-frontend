@@ -1,17 +1,8 @@
 import React, {Component} from 'react';
-import {
-  StatusBar,
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  Platform,
-} from 'react-native';
+import {StatusBar, StyleSheet, View, Text, Dimensions} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
-console.log(windowWidth, windowHeight, Platform.OS);
 
 export default class ViewOutlet extends Component {
   render() {
@@ -19,7 +10,7 @@ export default class ViewOutlet extends Component {
       <>
         <StatusBar barStyle="dark-content" />
         <View style={styles.rootContainer}>
-          <Text style={styles.submitText}>{'View Outlet'}</Text>
+          <Text style={styles.submitText}>{'Viewing Outlet'}</Text>
         </View>
       </>
     );
