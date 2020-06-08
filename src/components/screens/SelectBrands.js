@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {
   StatusBar,
   View,
@@ -7,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  Platform,
 } from 'react-native';
 
 import {SectionGrid} from 'react-native-super-grid';
@@ -24,110 +24,119 @@ export default class SelectBrands extends Component {
       brands: this.addSelectedFlagToBrands(),
     };
   }
-  addSelectedFlagToBrands() {
+
+  addSelectedFlagToBrands = () => {
     brands.forEach((item) => (item.isSelected = false));
     return brands;
-  }
+  };
+
+  renderHeader = () => (
+    <>
+      <View style={styles.submitButtonContainer}>
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() => this.props.navigation.navigate('Home')}
+          disabled={!this.state.isSubmitActive}>
+          <Text
+            style={
+              this.state.isSubmitActive
+                ? styles.submitTextActive
+                : styles.submitTextInactive
+            }>
+            {'Submit >'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.screenDescriptionContainer}>
+        <View style={styles.headingContainer}>
+          <Text style={styles.heading}>{'Select brands'}</Text>
+        </View>
+        <View style={styles.subHeadingContainer}>
+          <Text style={styles.subHeading}>
+            {
+              'This will help us notify you on latest offers and rewards of your favourite brands'
+            }
+          </Text>
+        </View>
+      </View>
+    </>
+  );
+
+  renderBody = () => (
+    <SectionGrid
+      itemDimension={90}
+      showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
+      sections={[
+        {
+          title: 'AUTOMOTIVE',
+          data: this.state.brands.slice(0, 9),
+        },
+        {
+          title: 'FOOD AND BEVERAGE',
+          data: this.state.brands.slice(9, 12),
+        },
+        {
+          title: 'CONSUMER PRODUCTS',
+          data: this.state.brands.slice(12, 15),
+        },
+      ]}
+      style={styles.gridView}
+      renderItem={this.renderGridItem}
+      renderSectionHeader={this.renderSectionHeader}
+    />
+  );
+
+  renderSectionHeader = ({section}) => (
+    <Text style={styles.sectionHeader}>{section.title}</Text>
+  );
+
+  renderGridItem = ({item, section, index}) => (
+    <TouchableOpacity
+      style={
+        item.isSelected ? styles.itemContainerActive : styles.itemContainer
+      }
+      onPress={() => {
+        const updatedBrands = this.state.brands;
+        updatedBrands.forEach((brand) => {
+          if (brand.ID === item.ID) {
+            brand.isSelected = !brand.isSelected;
+          }
+        });
+        this.setState({
+          brands: updatedBrands,
+        });
+      }}>
+      {item.isSelected ? (
+        <View style={styles.tickContainer}>
+          <Image
+            source={require('../../assets/images/SelectBrands/tick.png')}
+          />
+        </View>
+      ) : (
+        <View style={styles.tickContainer}>{null}</View>
+      )}
+
+      <View style={styles.itemImageContainer}>
+        <Image style={styles.itemImage} source={{uri: item.imageURI}} />
+      </View>
+      <View style={styles.tickContainer}>{null}</View>
+    </TouchableOpacity>
+  );
+
   render() {
     return (
       <>
-        <StatusBar barStyle="dark-content" translucent={true} />
+        <StatusBar
+          barStyle={
+            Platform.OS === 'android' ? 'light-content' : 'dark-content'
+          }
+          translucent={true}
+        />
         <SafeAreaView style={styles.safeContainer}>
           <View style={styles.rootContainer}>
-            <View style={styles.headerContainer}>
-              <View style={styles.submitButtonContainer}>
-                <TouchableOpacity
-                  style={styles.submitButton}
-                  onPress={() => this.props.navigation.navigate('Home')}
-                  disabled={!this.state.isSubmitActive}>
-                  <Text
-                    style={
-                      this.state.isSubmitActive
-                        ? styles.submitTextActive
-                        : styles.submitTextInactive
-                    }>
-                    {'Submit >'}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.screenDescriptionContainer}>
-                <View style={styles.headingContainer}>
-                  <Text style={styles.heading}>{'Select brands'}</Text>
-                </View>
-                <View style={styles.subHeadingContainer}>
-                  <Text style={styles.subHeading}>
-                    {
-                      'This will help us notify you on latest offers and rewards of your favourite brands'
-                    }
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.bodyContainer}>
-              <SectionGrid
-                itemDimension={90}
-                // staticDimension={300}
-                // fixed
-                // spacing={20}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                sections={[
-                  {
-                    title: 'AUTOMOTIVE',
-                    data: this.state.brands.slice(0, 9),
-                  },
-                  {
-                    title: 'FOOD AND BEVERAGE',
-                    data: this.state.brands.slice(9, 12),
-                  },
-                  {
-                    title: 'CONSUMER PRODUCTS',
-                    data: this.state.brands.slice(12, 15),
-                  },
-                ]}
-                style={styles.gridView}
-                renderItem={({item, section, index}) => (
-                  <TouchableOpacity
-                    style={
-                      item.isSelected
-                        ? styles.itemContainerActive
-                        : styles.itemContainer
-                    }
-                    onPress={() => {
-                      const updatedBrands = this.state.brands;
-                      updatedBrands.forEach((brand) => {
-                        if (brand.ID === item.ID) {
-                          brand.isSelected = !brand.isSelected;
-                        }
-                      });
-                      this.setState({
-                        brands: updatedBrands,
-                      });
-                    }}>
-                    {item.isSelected ? (
-                      <View style={styles.tickContainer}>
-                        <Image
-                          source={require('../../assets/images/SelectBrands/tick.png')}
-                        />
-                      </View>
-                    ) : (
-                      <View style={styles.tickContainer}>{null}</View>
-                    )}
-
-                    <View style={styles.itemImageContainer}>
-                      <Image
-                        style={styles.itemImage}
-                        source={{uri: item.imageURI}}
-                      />
-                    </View>
-                    <View style={styles.tickContainer}>{null}</View>
-                  </TouchableOpacity>
-                )}
-                renderSectionHeader={({section}) => (
-                  <Text style={styles.sectionHeader}>{section.title}</Text>
-                )}
-              />
-            </View>
+            <View style={styles.headerContainer}>{this.renderHeader()}</View>
+            <View style={styles.bodyContainer}>{this.renderBody()}</View>
           </View>
         </SafeAreaView>
       </>
