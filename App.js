@@ -15,10 +15,7 @@ export default class App extends Component {
     return (
       <>
         <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerShown: false,
-            }}>
+          <Stack.Navigator headerMode={'none'}>
             <Stack.Screen name="Brand Selection" component={SelectBrands} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Outlet Selection" component={SelectOutlet} />
