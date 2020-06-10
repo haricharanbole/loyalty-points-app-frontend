@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {StatusBar, Text, View, Button} from 'react-native';
+import {Text, View, Button} from 'react-native';
+
+import CustomStatusBar from '../shared/CustomStatusBar';
 
 import styles from './styles/SelectOutletStyles';
 
@@ -7,7 +9,11 @@ export default class SelectOutlet extends Component {
   render() {
     return (
       <>
-        <StatusBar barStyle="dark-content" />
+        <CustomStatusBar
+          isTranscluent={true}
+          backgroundColor={'#FFF'}
+          barStyle={'dark-content'}
+        />
         <View style={styles.rootContainer}>
           <Text>Selet Outlet Screen</Text>
           <Button

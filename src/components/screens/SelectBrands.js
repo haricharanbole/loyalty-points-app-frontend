@@ -1,16 +1,9 @@
 import React, {Component} from 'react';
-import {
-  StatusBar,
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  Image,
-  Platform,
-} from 'react-native';
+import {View, Text, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 
 import {SectionGrid} from 'react-native-super-grid';
 
+import CustomStatusBar from '../shared/CustomStatusBar';
 import styles from './styles/SelectBrandsStyles';
 
 const brands = require('../../assets/images/SelectBrands/brands.json')
@@ -127,11 +120,10 @@ export default class SelectBrands extends Component {
   render() {
     return (
       <>
-        <StatusBar
-          barStyle={
-            Platform.OS === 'android' ? 'light-content' : 'dark-content'
-          }
-          translucent={true}
+        <CustomStatusBar
+          isTranscluent={true}
+          backgroundColor={'#FFF'}
+          barStyle={'dark-content'}
         />
         <SafeAreaView style={styles.safeContainer}>
           <View style={styles.rootContainer}>
