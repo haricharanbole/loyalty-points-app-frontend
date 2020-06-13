@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Button, Text, SafeAreaView} from 'react-native';
+import {View, Button, Text, SafeAreaView, Ionicons} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 import CustomStatusBar from '../shared/CustomStatusBar';
+import CustomIcon from '../shared/CustomIcon';
 
 import PayNow from './PayNow';
 import Rewards from './Rewards';
@@ -37,9 +38,29 @@ function Home(props) {
 export default function HomeScreen(props) {
   return (
     <>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="PayNow" component={PayNow} />
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+
+            if (route.name === 'Stores') {
+              iconName = focused ? 'stores' : 'stores';
+            } else if (route.name === 'Pay Now') {
+              iconName = focused ? 'paynow' : 'paynow';
+            } else if (route.name === 'Rewards') {
+              iconName = focused ? 'rewards' : 'rewards';
+            }
+
+            // You can return any component that you like here!
+            return <CustomIcon name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}>
+        <Tab.Screen name="Stores" component={Home} />
+        <Tab.Screen name="Pay Now" component={PayNow} />
         <Tab.Screen name="Rewards" component={Rewards} />
       </Tab.Navigator>
     </>
