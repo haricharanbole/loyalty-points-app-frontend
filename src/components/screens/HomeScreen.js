@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Button, Text, SafeAreaView, Ionicons} from 'react-native';
+import {View, Button, Text, SafeAreaView, ScrollView} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
@@ -9,8 +9,9 @@ import CustomIcon from '../shared/CustomIcon';
 import PayNow from './PayNow';
 import Rewards from './Rewards';
 import styles from './styles/HomeScreenStyles';
+import AppHeader from '../shared/AppHeader';
 
-function Home(props) {
+function HomeScreenContent(props) {
   return (
     <>
       <CustomStatusBar
@@ -22,12 +23,16 @@ function Home(props) {
         style={styles.safeContainer}
         forceInset={{top: 'always', bottom: 'always'}}>
         <View style={styles.rootContainer}>
-          <View style={styles.header}></View>
+          <AppHeader headerFlex={0.1} />
           <View style={styles.body}>
-            <Button
-              onPress={() => props.navigation.navigate('Outlet Selection')}
-              title="Click on Brand"
-            />
+            <ScrollView>
+              <View>
+                <Button
+                  onPress={() => props.navigation.navigate('Outlet Selection')}
+                  title="Click on Brand"
+                />
+              </View>
+            </ScrollView>
           </View>
         </View>
       </SafeAreaView>
@@ -59,7 +64,7 @@ export default function HomeScreen(props) {
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
         }}>
-        <Tab.Screen name="Stores" component={Home} />
+        <Tab.Screen name="Stores" component={HomeScreenContent} />
         <Tab.Screen name="Pay Now" component={PayNow} />
         <Tab.Screen name="Rewards" component={Rewards} />
       </Tab.Navigator>
