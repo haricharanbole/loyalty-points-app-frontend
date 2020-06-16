@@ -53,6 +53,68 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
   },
+  container: {
+    flex: 1,
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    height: 150,
+    width: wp('100%'),
+    justifyContent: 'center',
+    marginBottom: 8,
+    padding: 20,
+  },
+  title: {
+    fontSize: 32,
+  },
+  rootCategoryContainer: {
+    flex: 0.15,
+    width: wp('100%'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  categoryContainerHeadingView: {
+    height: hp('5%'),
+    width: wp('100%'),
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  categoryContainerHeading: {
+    fontFamily: 'Roboto-Black',
+    fontSize: hp('2.5%'),
+    marginLeft: wp('5%'),
+  },
+  categoryContainer: {
+    height: hp('7.5%'),
+    width: hp('7.5%'),
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  categoryImageContainer: {
+    height: '75%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  categoryTexContainer: {
+    height: '20%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+  },
+  categoryImage: {
+    height: '40%',
+    resizeMode: 'contain',
+  },
+  categoryText: {
+    fontFamily: 'Roboto-Medium',
+    fontSize: hp('1.3%'),
+  },
 });
 
 export default styles;
