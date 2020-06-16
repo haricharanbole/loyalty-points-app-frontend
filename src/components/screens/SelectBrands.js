@@ -6,8 +6,7 @@ import {SectionGrid} from 'react-native-super-grid';
 import CustomStatusBar from '../shared/CustomStatusBar';
 import styles from './styles/SelectBrandsStyles';
 
-const brands = require('../../assets/images/SelectBrands/brands.json')
-  .BrandLogos;
+const brands = require('../../json/brands.json').BrandLogos;
 
 export default class SelectBrands extends Component {
   constructor(props) {
